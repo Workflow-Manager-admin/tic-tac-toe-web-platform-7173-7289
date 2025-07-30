@@ -1,104 +1,288 @@
-/* CSS Variables for Theme Management */
+/* Root CSS Variables (overrides/extends existing for our theme) */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  /* Color theme as specified */
+  --ttt-accent: #ffb300;
+  --ttt-primary: #1976d2;
+  --ttt-secondary: #424242;
+  --ttt-bg: #fff;
+  --ttt-border: #e0e0e0;
+  --ttt-box-radius: 16px;
+  --ttt-header-height: 88px;
+  --ttt-box-shadow: 0 1px 14px 0 rgba(33, 36, 39, 0.06);
+  --ttt-light: #f8f9fa;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+/* Reset some defaults */
+body {
+  background: var(--ttt-bg);
+  margin: 0;
+  color: var(--ttt-secondary);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 
-.App {
+/* Main App */
+.ttt-app {
+  min-height: 100vh;
+  background: var(--ttt-bg);
+  color: var(--ttt-secondary);
+  display: flex;
+  flex-direction: column;
+}
+
+.ttt-header {
+  padding-top: 2.2rem;
+  padding-bottom: 1rem;
   text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.ttt-header h1 {
+  letter-spacing: -1.5px;
+  font-weight: 800;
+  margin: 0;
+  font-size: 2.2rem;
+  color: var(--ttt-primary);
+}
+.ttt-header .subtitle {
+  display: block;
+  color: var(--ttt-secondary);
+  opacity: 0.7;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 3px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+/* Menu section */
+.ttt-mode-menu {
+  margin: 0 auto;
+  margin-top: 3rem;
+  max-width: 380px;
+  background: var(--ttt-light);
+  border-radius: var(--ttt-box-radius);
+  box-shadow: var(--ttt-box-shadow);
+  padding: 2rem 1.5rem 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
 }
-
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
-}
-
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
+.mode-title {
   font-weight: 600;
+  color: var(--ttt-accent);
+  font-size: 1.2rem;
+  letter-spacing: 0.3px;
+  margin-bottom: 18px;
+}
+.mode-options {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+.mode-btn {
+  background: transparent;
+  border: 2px solid var(--ttt-primary);
+  color: var(--ttt-primary);
+  padding: 10px 28px;
+  border-radius: 28px;
+  font-weight: 500;
+  font-size: 1.05rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.22s cubic-bezier(.86,.06,.25,.96);
+  outline: none;
+}
+.mode-btn.selected,
+.mode-btn:hover {
+  background-color: var(--ttt-primary);
+  color: #fff;
+}
+.start-btn {
+  margin-top: 10px;
+  background: var(--ttt-accent);
+  color: #fff;
+  border: none;
+  padding: 12px 42px;
+  border-radius: 24px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  box-shadow: 0 2px 10px 0 rgba(255,179,0,.08);
+  transition: filter 0.2s, box-shadow 0.2s;
+}
+.start-btn:hover {
+  filter: brightness(1.08);
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+/* Main game area */
+.ttt-main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0 0;
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+/* Player indicators */
+.player-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  margin-top: 0;
+}
+.player-label {
+  color: var(--ttt-secondary);
+  opacity: 0.64;
+  font-weight: 600;
+  transition: opacity 0.2s;
+  padding: 2px 16px;
+  border-radius: 15px;
+}
+.player-label.active {
+  color: var(--ttt-primary);
+  background: #e3edfa;
+  box-shadow: 0 1px 5px 0 rgba(25,118,210,0.04);
+  opacity: 1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Game board styles */
+.ttt-board {
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(3, 66px);
+  grid-template-rows: repeat(3, 66px);
+  margin: 28px auto;
+  border-radius: 18px;
+  box-shadow: 0 1px 8px 0 rgba(66, 66, 66, 0.04);
+  background: var(--ttt-bg);
+  border: 1.7px solid var(--ttt-border);
+  overflow: hidden;
+  user-select: none;
+}
+.ttt-cell {
+  width: 66px;
+  height: 66px;
+  background: var(--ttt-light);
+  border: 1.7px solid var(--ttt-border);
+  border-radius: 0px;
+  color: var(--ttt-primary);
+  font-size: 2.3rem;
+  font-weight: 800;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: background 0.18s cubic-bezier(.63,.1,.32,.98), color 0.14s;
+  outline: none;
+}
+.ttt-cell.filled {
+  color: var(--ttt-accent);
+}
+.ttt-cell:focus {
+  background: #e3edfa;
+  border: 1.7px solid var(--ttt-primary);
+}
+.ttt-cell:active {
+  background: #fff4cc;
+}
+.ttt-cell[disabled] {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+/* Game status (win/draw) */
+.game-status {
+  margin: 22px auto 0 auto;
+  font-size: 1.13rem;
+  min-height: 24px;
+  color: var(--ttt-accent);
+  opacity: 0;
+  transition: opacity 0.32s;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.game-status.visible {
+  opacity: 1;
+}
+
+/* Reset row/button */
+.ttt-reset-row {
+  display: flex;
+  justify-content: center;
+  margin: 6px 0 0 0;
+}
+.reset-btn {
+  background: var(--ttt-secondary);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 34px;
+  font-size: 0.99rem;
+  font-weight: 500;
+  margin-left: 0.5px;
+  cursor: pointer;
+  margin-bottom: 2.2rem;
+  box-shadow: 0 1.5px 8px rgba(33,36,39,0.04);
+  transition: background 0.17s;
+}
+.reset-btn:hover {
+  background: #2d2d2d;
+  color: #ffb300;
+}
+
+/* Footer */
+.ttt-footer {
+  text-align: center;
+  padding: 20px 0 8px 0;
+  font-size: 0.99rem;
+  color: #b4b4b4;
+}
+
+.ttt-footer a {
+  color: var(--ttt-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.19s;
+}
+.ttt-footer a:hover {
+  color: var(--ttt-accent);
+}
+
+@media (max-width: 520px) {
+  .ttt-header h1 {
+    font-size: 1.3rem;
   }
-  to {
-    transform: rotate(360deg);
+  .ttt-header .subtitle {
+    font-size: 0.93rem;
+  }
+  .ttt-mode-menu {
+    padding: 1.3rem 2vw;
+    margin-top: 1.1rem;
+    max-width: 320px;
+  }
+  .ttt-board {
+    grid-template-columns: repeat(3, 44vw);
+    grid-template-rows: repeat(3, 44vw);
+    min-width: 0;
+    width: 98vw;
+    max-width: calc(98vw - 36px);
+    margin: 5vw auto;
+  }
+  .ttt-cell {
+    width: 44vw;
+    height: 44vw;
+    font-size: 2.7rem;
+    min-width: 38px;
+    min-height: 38px;
+    max-width: 130px;
+    max-height: 130px;
+  }
+  .player-indicators {
+    font-size: 1rem;
+    gap: 8px;
+  }
+  .game-status {
+    font-size: 1.05rem;
+  }
+  .ttt-reset-row {
+    margin-bottom: 1.5rem;
   }
 }
-
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
-}
+/* End custom tic tac toe app styles */
